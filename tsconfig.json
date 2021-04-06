@@ -2,16 +2,16 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
-        "outDir": "dist",
+        "outDir": "lib",
         "noImplicitAny": true,
         "experimentalDecorators": true,
         "sourceMap": true,
         "declaration": true,
-        "declarationDir": "dist"
+        "declarationDir": "lib"
     },
     "exclude": [
         "node_modules",
         "test",
-        "dist"
+        "lib"
     ]
 }

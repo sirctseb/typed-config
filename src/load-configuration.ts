@@ -38,6 +38,28 @@ export async function loadConfiguration(obj: any, configProvider: ConfigProvider
   }
 }
 
+export function loadConfigurationSync(obj: any, configProvider: ConfigProvider): void {
+  const keyInfos = getKeyInfos(obj);
+  const optionals = getOptionalInfo(obj);
+
+  for (const info of keyInfos) {
+    let value: any;
+
+    const optionalInfo = optionals[info.propertyName] || notOptional;
+    const shouldLoad = optionalInfo.predicate(obj, info.propertyName, info.loader.configKey || '', configProvider);
+
+    if (!shouldLoad && optionalInfo.defaultValue !== undefined) {
+      value = optionalInfo.defaultValue;
+    } else if (shouldLoad) {
+      value = loadConfigValueSync(obj, configProvider, info);
+    }
+
+    if (value !== undefined) {
+      obj[info.propertyName] = value;
+    }
+  }
+}
+
 function getKeyInfos(obj: any): KeyInfo[] {
   try {
     return getKeyInfo(obj);
@@ -50,6 +72,14 @@ async function loadConfigValue(obj: any, configProvider: ConfigProvider, info: K
   let value = await info.loader(configProvider);
   for (const transform of info.transformers) {
     value = await transform(obj, info.propertyName, value);
+  }
+  obj[info.propertyName] = value;
+}
+
+function loadConfigValueSync(obj: any, configProvider: ConfigProvider, info: KeyInfo): void {
+  let value = configProvider.get(info.loader.configKey);
+  for (const transform of info.transformers) {
+    value = transform(obj, info.propertyName, value);
   }
   obj[info.propertyName] = value;
 }

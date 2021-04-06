@@ -12,7 +12,7 @@ export interface ConfigProvider {
 // Function used as a transformation on a key value as it gets loaded.
 //
 export interface ValueTransform {
-  (value: any, target?: any, propName?: string): any;
+  (target?: any, propName?: string, value?: any): any;
 }
 
 //

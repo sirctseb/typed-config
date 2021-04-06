@@ -103,7 +103,7 @@ The transforms are completely optional, but very useful.
 `ValueTransform` items are simply functions with this signature:
 
 ```typescript
-  type ValueTransform = (value: any, target?: any, propName?: string): any;
+  type ValueTransform = (target?: any, propName?: string, value?: any): any;
 ```
 
 In other words, a function that takes a value, and returns a value. In addition, the
