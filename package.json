@@ -1,5 +1,5 @@
 {
-  "name": "@walnut-core/typed-config",
+  "name": "@sirctseb/typed-config",
   "version": "1.0.0",
   "description": "Type-safe configuration for Typescript projects",
   "keywords": [
