@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 import { KeyInfo, OptionalInfo, OptionalInfos } from '../src/types';
-import { KeyInfoSymbol, tryGetAtSymbol } from '../src/metadata';
+import { getAtSymbol, KeyInfoSymbol } from '../src/metadata';
 import { key } from '../src/key';
 import { asNumber } from '../src/transforms';
 
@@ -18,7 +18,7 @@ describe('key decorator', function () {
     });
 
     function getKeyInfo(): KeyInfo[] {
-      return tryGetAtSymbol(configProto, KeyInfoSymbol);
+      return getAtSymbol(configProto, KeyInfoSymbol, 'Test Message');
     }
 
     it('should set keyInfo on prototype with one entry', function () {
@@ -55,7 +55,7 @@ describe('key decorator', function () {
     });
 
     it('should have stored transformers in order', function () {
-      expect(tryGetAtSymbol<KeyInfo[]>(configProto, KeyInfoSymbol)[0])
+      expect(getAtSymbol<KeyInfo[]>(configProto, KeyInfoSymbol, 'Get Failed')[0])
         .to.have.property('transformers')
         .to.be.an.instanceof(Array)
         .and.eql([asNumber, xform2]);

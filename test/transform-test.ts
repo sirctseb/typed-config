@@ -34,19 +34,19 @@ describe('transforms', function () {
 
   describe('split', function () {
     it('should split on given character into array', function () {
-      const result: string[] = split(',')(undefined, undefined, 'a,b,cd,ef');
+      const result: string[] = split(',')(undefined, 'anyPropName', 'a,b,cd,ef');
       expect(result).to.eql(['a', 'b', 'cd', 'ef']);
     });
 
     it('should result in one arg array if no separators in source', function () {
-      const result: string = split(',')(undefined, undefined, 'no commas here');
+      const result: string = split(',')(undefined, 'anyPropName', 'no commas here');
       expect(result).to.eql(['no commas here']);
     });
   });
 
   describe('map', function () {
     it('should run transform over array', async function () {
-      const result: any[] = await map(asNumber)(undefined, undefined, ['1', '34', '42']);
+      const result: any[] = await map(asNumber)(undefined, 'anyPropName', ['1', '34', '42']);
       expect(result).to.eql([1, 34, 42]);
     });
 
@@ -71,14 +71,14 @@ describe('transforms', function () {
 
   describe('trim', function () {
     it('should remove leading and trailing whitespace', function () {
-      expect(trim()(undefined, undefined, '  this is extra stuff  \n   ')).to.equal('this is extra stuff');
-      expect(trim()(undefined, undefined, 'this just has trailing whitespace  \t  ')).to.equal('this just has trailing whitespace');
-      expect(trim()(undefined, undefined, '    leading whitespace')).to.equal('leading whitespace');
-      expect(trim()(undefined, undefined, 'trailing newlines must go\n')).to.equal('trailing newlines must go');
+      expect(trim()(undefined, 'anyPropName', '  this is extra stuff  \n   ')).to.equal('this is extra stuff');
+      expect(trim()(undefined, 'anyPropName', 'this just has trailing whitespace  \t  ')).to.equal('this just has trailing whitespace');
+      expect(trim()(undefined, 'anyPropName', '    leading whitespace')).to.equal('leading whitespace');
+      expect(trim()(undefined, 'anyPropName', 'trailing newlines must go\n')).to.equal('trailing newlines must go');
     });
 
     it('should not affect strings without leading or trailing whitespace', function () {
-      expect(trim()(undefined, undefined, 'no trim needed here')).to.equal('no trim needed here');
+      expect(trim()(undefined, 'anyPropName', 'no trim needed here')).to.equal('no trim needed here');
     });
   });
 });

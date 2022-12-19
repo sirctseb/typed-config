@@ -12,39 +12,39 @@ import { ObjectProvider } from './support/object-config-provider';
 // Our sample config class
 class ConfigWithOptionals {
   @key('required')
-  public required: string;
+  public required!: string;
 
   @key('optional.present')
   @optional()
-  public optionalAndPresent: string;
+  public optionalAndPresent!: string | null;
 
   @key('optional.notpresent')
   @optional()
-  public optionalNotPresent: string;
+  public optionalNotPresent!: string | null;
 
   @key('optional.defaultandpresent')
   @optional('default value')
-  public optionalWithDefaultAndPresent: string;
+  public optionalWithDefaultAndPresent!: string;
 
   @key('optional.defaultandnotpresent')
   @optional('not present in config')
-  public optionalWithDefaultAndNotPresent: string;
+  public optionalWithDefaultAndNotPresent!: string;
 
   @key('optional.passingpredicate')
   @optional((o) => true)
-  public optionalWithPassingPredicate: string;
+  public optionalWithPassingPredicate!: string;
 
   @key('optional.failingpredicate')
   @optional((o) => false)
-  public optionalWithFailingPredicate: string;
+  public optionalWithFailingPredicate!: string | null;
 
   @key('optional.passingpredicatewithdefault')
   @optional((o) => true, 'default value')
-  public optionalWithPassingPredicateAndDefault: string;
+  public optionalWithPassingPredicateAndDefault!: string;
 
   @key('optional.failingpredicatewithdefault')
   @optional((o) => false, 'default if predicate failed')
-  public optionalWithFailingPredicateAndDefault: string;
+  public optionalWithFailingPredicateAndDefault!: string;
 }
 
 describe('optional loading', function () {

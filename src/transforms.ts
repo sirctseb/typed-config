@@ -88,7 +88,7 @@ export function trim(): ValueTransform {
 // Map a single transformation function over an array of values
 //
 export function map(transform: ValueTransform): ValueTransform {
-  return function mapTransform(target?: any, propName?: string, values?: any[]): Promise<any> {
+  return function mapTransform(target: any, propName: string, values: any[]): Promise<any> {
     let result = Promise.resolve([]);
     values.forEach((value: any) => {
       result = result.then((results) =>

@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import { KeyInfo } from '../src/types';
 import { key as rawkey } from '../src/key';
 import { getKeyInfo } from '../src/metadata';
 
@@ -9,13 +8,13 @@ function key(configKey: string) {
 
 class SampleConfig {
   @key('a.setting')
-  public setting1: string;
+  public setting1!: string;
 
   @key('another.setting')
-  public setting2: string;
+  public setting2!: string;
 
   @key('more.setting')
-  public setting3: string;
+  public setting3!: string;
 }
 
 describe('Decorated class', function () {

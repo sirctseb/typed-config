@@ -7,11 +7,11 @@
         "experimentalDecorators": true,
         "sourceMap": true,
         "declaration": true,
-        "declarationDir": "lib"
+        "declarationDir": "lib",
+        "strict": true
     },
     "exclude": [
         "node_modules",
-        "test",
         "lib"
     ]
 }

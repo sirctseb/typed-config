@@ -12,7 +12,7 @@ export const OptionalInfoSymbol = Symbol('optionalkeyinfo');
 // regardless of if the target is the prototype directly,
 // a constructor function, or an instance.
 //
-export function tryGetAtSymbol<T>(target: any, key: symbol): T {
+export function tryGetAtSymbol<T>(target: any, key: symbol): T | undefined {
   if (target[key]) {
     return target[key] as T;
   }

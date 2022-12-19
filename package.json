@@ -12,6 +12,7 @@
   "scripts": {
     "clean": "rimraf ./lib",
     "tslint": "tslint --project tsconfig.tslint-all.json",
+    "typecheck": "tsc --noEmit --project .",
     "build": "npm run tslint && npm run build:typescript",
     "build:typescript": "tsc",
     "test:typescript": "mocha --require ts-node/register --require source-map-support/register --recursive ./test/**/*-test.[tj]s",

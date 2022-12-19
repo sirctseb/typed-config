@@ -12,7 +12,7 @@ export interface ConfigProvider {
 // Function used as a transformation on a key value as it gets loaded.
 //
 export interface ValueTransform {
-  (target?: any, propName?: string, value?: any): any;
+  (target: any, propName: string, value: any): any;
 }
 
 //
@@ -44,7 +44,7 @@ export interface PropertyDecorator {
 // Type of optional predicate function.
 //
 export interface OptionalPredicate {
-  (target: any, propertyName?: string, keyName?: string, config?: ConfigProvider): boolean;
+  (target: any, propertyName: string, keyName: string, config: ConfigProvider): boolean;
 }
 
 //

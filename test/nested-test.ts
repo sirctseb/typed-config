@@ -11,18 +11,18 @@ function asNumber(target: any, propName: string, value: any): number {
 
 class SubConfig {
   @key('sub.one')
-  public one: string;
+  public one!: string;
 
   @key('sub.two', asNumber)
-  public two: number;
+  public two!: number;
 }
 
 class Config {
   @key('first')
-  public first: string;
+  public first!: string;
 
   @nested(SubConfig)
-  public nested: SubConfig;
+  public nested!: SubConfig;
 }
 
 describe('Nested decorator', function () {

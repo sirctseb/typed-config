@@ -51,17 +51,17 @@ describe('Sync config loader', function () {
     }
 
     function split(splitChar: string): ValueTransform {
-      return function (target: any, prop: string, value: any): string[] {
+      return function (target: any, propName: string, value: any): string[] {
         return (value as string).split(splitChar);
       };
     }
 
-    function titleCase(target: any, prop: string, value: any): string {
+    function titleCase(target: any, propName: string, value: any): string {
       const s: string = value.toString();
       return s.slice(0, 1).toUpperCase() + s.slice(1);
     }
 
-    function reverse(target: any, prop: string, value: any): string {
+    function reverse(target: any, propName: string, value: any): string {
       const s: string = value.toString();
       return s.split('').reverse().join('');
     }
