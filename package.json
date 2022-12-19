@@ -1,6 +1,6 @@
 {
   "name": "@sirctseb/typed-config",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Type-safe configuration for Typescript projects",
   "keywords": [
     "typescript",
@@ -15,9 +15,10 @@
     "typecheck": "tsc --noEmit --project .",
     "build": "npm run tslint && npm run build:typescript",
     "build:typescript": "tsc",
-    "test:typescript": "mocha --require ts-node/register --require source-map-support/register --recursive ./test/**/*-test.[tj]s",
+    "test:typescript": "mocha --require ts-node/register --require source-map-support/register --recursive ./test/*-test.[tj]s",
+    "test:integration": "NODE_CONFIG_DIR=./test/integration mocha --require ts-node/register --require source-map-support/register --recursive ./test/integration/*-test.[tj]s",
     "test:coverage": "nyc mocha --require ts-node/register --require source-map-support/register --recursive ./test/**/*-test.[tj]s",
-    "test": "npm run clean && npm run tslint && npm run build:typescript && npm run test:typescript"
+    "test": "yarn clean && yarn tslint && yarn build:typescript && yarn test:typescript && yarn test:integration"
   },
   "author": "Chris Tavares <cct@tavaresstudios.com>",
   "license": "MIT",
@@ -25,6 +26,7 @@
     "@types/chai": "^4.0.4",
     "@types/mocha": "^2.2.43",
     "chai": "^4.1.2",
+    "config": "^3.0.0",
     "mocha": "^8.3.2",
     "nyc": "^15.1.0",
     "rimraf": "^2.6.2",
@@ -38,10 +40,10 @@
     "typescript": "^4.0.0"
   },
   "dependencies": {
-    "@types/config": "0.0.33"
+    "@types/config": "^3.0.0"
   },
   "peerDependencies": {
-    "config": "1.*"
+    "config": "^3.0.0"
   },
   "types": "./lib/index.d.ts",
   "nyc": {
