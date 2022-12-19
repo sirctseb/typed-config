@@ -35,7 +35,7 @@
     "tslint-language-service": "^0.9.6",
     "tslint-microsoft-contrib": "^5.0.1",
     "tslint-no-unused-expression-chai": "0.0.3",
-    "typescript": "^2.7.2"
+    "typescript": "^4.0.0"
   },
   "dependencies": {
     "@types/config": "0.0.33"
