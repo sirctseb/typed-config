@@ -10,8 +10,12 @@ import { KeyInfoSymbol, setKeyInfo } from './metadata';
 import { ConfigProvider, ValueTransform, KeyInfo, KeyLoader, PropertyDecorator } from './types';
 
 export function scalarLoader(configKey: string): KeyLoader {
-  const loader: any = function loader(config: ConfigProvider): Promise<any> {
-    return Promise.resolve(config.get(configKey));
+  const loader: KeyLoader = function loader(config: ConfigProvider, sync: boolean = false): Promise<any> | any {
+    if (sync) {
+      return config.get(configKey);
+    } else {
+      return Promise.resolve(config.get(configKey));
+    }
   };
   loader.configKey = configKey;
   return loader;

@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { KeyInfo, ValueTransform, PropertyDecorator } from '../src/types';
 import { key } from '../src/key';
 import { nested } from '../src/nested';
-import { loadConfiguration } from '../src/load-configuration';
+import { loadConfiguration, loadConfigurationSync } from '../src/load-configuration';
 
 function asNumber(target: any, propName: string, value: any): number {
   return +value;
@@ -37,23 +37,58 @@ describe('Nested decorator', function () {
     has(key: string) { return configData.hasOwnProperty(key); }
   };
 
-  const loadedConfig = new Config();
+  describe('Async loading', () => {
+    const loadedConfig = new Config();
 
-  before(function () {
-    return loadConfiguration(loadedConfig, configProvider);
+    before(function () {
+      return loadConfiguration(loadedConfig, configProvider);
+    });
+
+    it('should load top level property', function () {
+      expect(loadedConfig.first).to.equal(configData.first);
+    });
+
+    it('should initialize nested property', function () {
+      expect(loadedConfig.nested).to.be.instanceof(SubConfig);
+    });
+
+    it('should load subconfiguration properties', function () {
+      expect(loadedConfig.nested.one).to.equal(configData['sub.one']);
+      expect(typeof loadedConfig.nested.two).to.equal('number');
+      expect(loadedConfig.nested.two).to.equal(+configData['sub.two']);
+    });
   });
 
-  it('should load top level property', function () {
-    expect(loadedConfig.first).to.equal(configData.first);
-  });
+  describe('Sync loading', () => {
+    const configData: any = {
+      first: 'Value for first key',
+      'sub.one': 'Value for nested one',
+      'sub.two': '37'
+    };
 
-  it('should initialize nested property', function () {
-    expect(loadedConfig.nested).to.be.instanceof(SubConfig);
-  });
+    const configProvider = {
+      get(key: string) { return configData[key]; },
+      has(key: string) { return configData.hasOwnProperty(key); }
+    };
 
-  it('should load subconfiguration properties', function () {
-    expect(loadedConfig.nested.one).to.equal(configData['sub.one']);
-    expect(typeof loadedConfig.nested.two).to.equal('number');
-    expect(loadedConfig.nested.two).to.equal(+configData['sub.two']);
+    const loadedConfig = new Config();
+
+    before(function () {
+      return loadConfigurationSync(loadedConfig, configProvider);
+    });
+
+    it('should load top level property', function () {
+      expect(loadedConfig.first).to.equal(configData.first);
+    });
+
+    it('should initialize nested property', function () {
+      expect(loadedConfig.nested).to.be.instanceof(SubConfig);
+    });
+
+    it('should load subconfiguration properties', function () {
+      expect(loadedConfig.nested.one).to.equal(configData['sub.one']);
+      expect(typeof loadedConfig.nested.two).to.equal('number');
+      expect(loadedConfig.nested.two).to.equal(+configData['sub.two']);
+    });
   });
 });

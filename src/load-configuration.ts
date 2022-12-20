@@ -69,7 +69,7 @@ function getKeyInfos(obj: any): KeyInfo[] {
 }
 
 async function loadConfigValue(obj: any, configProvider: ConfigProvider, info: KeyInfo): Promise<void> {
-  let value = await info.loader(configProvider);
+  let value = await info.loader(configProvider, false);
   for (const transform of info.transformers) {
     value = await transform(obj, info.propertyName, value);
   }
@@ -77,7 +77,7 @@ async function loadConfigValue(obj: any, configProvider: ConfigProvider, info: K
 }
 
 function loadConfigValueSync(obj: any, configProvider: ConfigProvider, info: KeyInfo): void {
-  let value = configProvider.get(info.loader.configKey);
+  let value = info.loader(configProvider, true);
   for (const transform of info.transformers) {
     value = transform(obj, info.propertyName, value);
   }

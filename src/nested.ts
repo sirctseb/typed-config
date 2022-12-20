@@ -4,14 +4,20 @@
 
 import { ConfigProvider, ValueTransform, KeyInfo, KeyLoader, PropertyDecorator } from './types';
 import { setKeyInfo } from './metadata';
-import { loadConfiguration } from './load-configuration';
+import { loadConfiguration, loadConfigurationSync } from './load-configuration';
 
-export function nestedLoader(subObjectType: {new (): any}): KeyLoader {
-  const loader: any = function loader(config: ConfigProvider): Promise<any> {
+function nestedLoader(subObjectType: {new (): any}): KeyLoader {
+  const loader: any = function loader(config: ConfigProvider, sync: boolean = false): Promise<any> | any {
     const subObject: any = new subObjectType();
-    return loadConfiguration(subObject, config)
-    .then(() => subObject);
+    if (sync) {
+      loadConfigurationSync(subObject, config);
+      return subObject;
+    } else {
+      return loadConfiguration(subObject, config)
+      .then(() => subObject);
+    }
   };
+
   loader.configKey = null;
   return loader;
 }

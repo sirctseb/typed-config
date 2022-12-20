@@ -19,7 +19,9 @@ export interface ValueTransform {
 // Function that will call the config provider to load a value.
 //
 export interface KeyLoader {
-  (configProvider: ConfigProvider): Promise<any>;
+  (configProvider: ConfigProvider, sync: true): any;
+  (configProvider: ConfigProvider, sync: false): Promise<any>;
+  (configProvider: ConfigProvider, sync: boolean): any | Promise<any>;
   configKey: string;
 }
 
